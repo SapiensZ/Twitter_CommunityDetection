@@ -1,0 +1,8 @@
+,username,count_rt_day,count_t_day,closeness_centrality,degree,in_degree,out_degree,betweenness_centrality,pagerank_value,cluster_id,modularity
+0,Infirmier0,6.0,0.0,1.0,6,6,0,0.0,0.516127579411215,0,0.0
+1,Thobama_,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0
+2,Oneguine12,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0
+3,yannick_stopyra,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0
+4,spenglerio,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0
+5,IndySan2,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0
+6,KarabacakBekir,0.0,1.0,0.0,1,0,1,0.0,0.08064540343146404,0,0.0

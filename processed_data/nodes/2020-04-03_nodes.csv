@@ -1,0 +1,4 @@
+,username,count_rt_day,count_t_day,closeness_centrality,degree,in_degree,out_degree,betweenness_centrality,pagerank_value,cluster_id,modularity
+0,BVoltaire,2.0,0.0,1.0,2,2,0,0.0,0.5833329068790127,0,0.0
+1,AlchimisteM,0.0,1.0,0.0,1,0,1,0.0,0.20833354656049352,0,0.0
+2,Titians20,0.0,1.0,0.0,1,0,1,0.0,0.20833354656049352,0,0.0

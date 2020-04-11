@@ -1,0 +1,7 @@
+,username,count_rt_day,count_t_day,closeness_centrality,degree,in_degree,out_degree,betweenness_centrality,pagerank_value,cluster_id,modularity
+0,BlancheurO,5.0,0.0,1.0,5,5,0,0.0,0.5238083873929529,0,0.0
+1,BCGAB7,0.0,1.0,0.0,1,0,1,0.0,0.09523832252140943,0,0.0
+2,PedroBertoletti,0.0,1.0,0.0,1,0,1,0.0,0.09523832252140943,0,0.0
+3,dany17300,0.0,1.0,0.0,1,0,1,0.0,0.09523832252140943,0,0.0
+4,Sodelycious,0.0,1.0,0.0,1,0,1,0.0,0.09523832252140943,0,0.0
+5,4deerhound,0.0,1.0,0.0,1,0,1,0.0,0.09523832252140943,0,0.0

@@ -1,0 +1,6 @@
+,username,count_rt_day,count_t_day,closeness_centrality,degree,in_degree,out_degree,betweenness_centrality,pagerank_value,cluster_id,modularity
+0,citeofrance,4.0,0.0,1.0,4,4,0,0.0,0.5348846347517865,0,0.0
+1,cocoows,0.0,1.0,0.0,1,0,1,0.0,0.11627884131205343,0,0.0
+2,adrilabelle,0.0,1.0,0.0,1,0,1,0.0,0.11627884131205343,0,0.0
+3,ptitchou_95,0.0,1.0,0.0,1,0,1,0.0,0.11627884131205343,0,0.0
+4,marypoppins5634,0.0,1.0,0.0,1,0,1,0.0,0.11627884131205343,0,0.0
