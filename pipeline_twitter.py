@@ -4,7 +4,6 @@
 # In[1]:
 
 
-import tweepy
 import csv
 import pandas as pd
 import time
@@ -21,7 +20,6 @@ import scipy.sparse as sparse
 from scipy.stats.stats import pearsonr
 import community
 import matplotlib.cm as cm
-get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[31]:
@@ -42,9 +40,6 @@ param_n_subset=10
 
 # In[2]:
 
-
-import warnings
-warnings.filterwarnings('ignore')
 
 
 # In[3]:
