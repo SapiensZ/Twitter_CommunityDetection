@@ -20,7 +20,7 @@ import scipy.sparse as sparse
 from scipy.stats.stats import pearsonr
 import community
 import matplotlib.cm as cm
-
+import random
 
 # In[2]:
 
@@ -37,6 +37,7 @@ dates = ['2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31',
         '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04',
         '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08',
          '2020-04-09', '2020-04-10']
+#dates=dates[:2]
 top_users_display = 10
 filter_by_top_cluster = True
 top_clusters_display = 10
@@ -432,14 +433,15 @@ def vizualize_from_df_betweenness(df_nodes, G, top=10, savename='test'):
 def reassign_top_clusters(df_nodes, top_clusters):
     s_top_clusters = df_nodes.groupby('cluster_id').cluster_id.count().sort_values(ascending=False)[:top_clusters]
     l_top_clusters = list(s_top_clusters.index)
+    other_cluster_id = random.choice([x for x in range(999) if x not in l_top_clusters])
     
-    def reassign_clusters(cluster_id):
+    def reassign_clusters(cluster_id, l_top_clusers=l_top_clusters, other_cluster_id=other_cluster_id):
         if cluster_id not in l_top_clusters:
             return other_cluster_id
         else:
             return cluster_id
     
-    other_cluster_id = random.choice([x for x in range(999) if x not in l_top_clusers])
+    
     df_nodes.loc[:, 'new_cluster_id'] = df_nodes.cluster_id.apply(reassign_clusters)
     return df_nodes
 
