@@ -22,55 +22,27 @@ import community
 import matplotlib.cm as cm
 
 
-# In[31]:
+# In[2]:
 
 
 from sklearn.cluster import SpectralClustering
 from sklearn.cluster import KMeans
 
 
+# In[6]:
+
+
+
 dates = ['2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31',
         '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04',
         '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08',
          '2020-04-09', '2020-04-10']
-dates= dates[:3]
-top_n =10
+top_users_display = 10
+filter_by_top_cluster = True
+top_clusters_display = 10
 param_subset=False
-param_n_subset=10
+param_n_subset=1000
 
-# In[2]:
-
-
-
-# In[3]:
-
-
-#Twitter API credentials
-#consumer_key = "BmvoUUcOUXhPxRR8uRC2TgKoW"
-#consumer_secret = "bNV6inRgeUSSVerytnnnTPveW8iM9GM0dwryZyiUKmYy436D1I"
-#access_key = "2969993776-b9Ui7fVJjW7gYId2C0kSGo5mN4ki93HSGEn6jx0"
-#access_secret = "N5ER33zjeIqfl5918MWTHLWbZzuBGfGL0FeSfNGvSsrvZ"
-
-
-# In[4]:
-
-
-#OAUTH_KEYS = {'consumer_key':consumer_key, 'consumer_secret':consumer_secret, 'access_token_key':access_key, 'access_token_secret':access_secret}
-#auth = tweepy.OAuthHandler(OAUTH_KEYS['consumer_key'], OAUTH_KEYS['consumer_secret'])
-#api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-
-
-# In[5]:
-
-
-def get_names_for_download(dates):
-    pwd = '/home/b00762654/twitter_None'
-    for i in range(len(dates) - 1):
-        csv_name = pwd + '/data_'+ str(dates[i]) + '_' + str(dates[i+1]) + '.csv'
-        print(csv_name)
-
-
-# In[6]:
 
 
 def get_names_for_download(dates):
@@ -82,7 +54,7 @@ def get_names_for_download(dates):
 
 # ## Functions
 
-# In[7]:
+# In[8]:
 
 
 #Returns a dict of dataframe with twitter data from folder data/
@@ -99,7 +71,7 @@ def load_folder_as_dict(dates, prefix='data/', subset=False, n_subset=100):
     return dict_df
 
 
-# In[8]:
+# In[9]:
 
 
 #Output stats on dataframes --> to do with the whole dataset
@@ -140,7 +112,7 @@ def get_stats_on_df(dict_df):
     return
 
 
-# In[9]:
+# In[10]:
 
 
 #Returns a directed graph from the datafrmae
@@ -153,7 +125,7 @@ def define_graph_from_df(df):
     return G
 
 
-# In[10]:
+# In[11]:
 
 
 #Returns a dictionnary of directed graphs from a dictionnary of dataframe
@@ -164,7 +136,7 @@ def define_graphs(dict_df):
     return graph_dict
 
 
-# In[19]:
+# In[12]:
 
 
 #Returns the max connected component in graph and dataframe format
@@ -176,7 +148,7 @@ def get_df_G_connected_comp(G, df):
     return gcc, df
 
 
-# In[20]:
+# In[13]:
 
 
 #Returns a list of dataframes with connected components from the inital one (UNUSED)
@@ -196,7 +168,7 @@ def split_by_connected_components(G, df, limit=5):
 
 # ## Nodes Information
 
-# In[22]:
+# In[14]:
 
 
 #Return dictionnary of degree centrality for each node
@@ -207,7 +179,7 @@ def compute_degree_centrality(G):
     return degree_centrality
 
 
-# In[23]:
+# In[15]:
 
 
 #Feature Engineering of nodes
@@ -257,7 +229,7 @@ def define_df_nodes(df, G):
 
 # ## Edges Information
 
-# In[28]:
+# In[16]:
 
 
 #Feature Engineering of Edges
@@ -271,7 +243,7 @@ def define_df_edges(df, G):
     return df_edges
 
 
-# In[30]:
+# In[17]:
 
 
 #df_edges.sort_values('count_t_day', ascending=False).head(10)
@@ -283,7 +255,7 @@ def define_df_edges(df, G):
 # - list format : [{nodeset_cluster1}, {nodeset_cluster2}, ...]
 # - dict format: {node1:cluser_id1, node2:cluster_id2 ...}
 
-# In[32]:
+# In[18]:
 
 
 #Less efficient than louvain clustering
@@ -302,7 +274,7 @@ def spectral_clustering(G, k=2):
     return partition
 
 
-# In[33]:
+# In[19]:
 
 
 def louvain_clustering(G):
@@ -318,12 +290,12 @@ def louvain_clustering(G):
     return part_fin
 
 
-# In[83]:
+# In[78]:
 
 
 def visualize_clusters(G, partition, save_name):
     colors=[]
-    plt.figure(figsize=(15,10))
+    plt.figure(figsize=(20,15))
     for i in range(len(partition)):
         colors.append(cm.Set1(i))
     pos=nx.spring_layout(G) # positions for all nodes
@@ -332,14 +304,10 @@ def visualize_clusters(G, partition, save_name):
         nx.draw_networkx_nodes(G, pos, nodelist=nodeset, node_color=colors[commId],
                                node_size=100, alpha=0.4)
     
-    nx.draw_networkx_edges(G, pos, alpha=0.5)
+    nx.draw_networkx_edges(G, pos, alpha=0.1)
     plt.savefig(save_name)
     plt.close()
     #plt.show()
-
-
-# In[84]:
-
 
 def visualize_clusters_labels(G, partition, dict_lab, save_name):
     colors=[]
@@ -350,16 +318,16 @@ def visualize_clusters_labels(G, partition, dict_lab, save_name):
     
     for commId, nodeset in enumerate(partition):
         nx.draw_networkx_nodes(G, pos, nodelist=nodeset, node_color=colors[commId],
-                               node_size=100, alpha=0.4)
+                               node_size=100, alpha=0.3)
     
-    nx.draw_networkx_labels(G, pos, labels=dict_lab)
-    nx.draw_networkx_edges(G, pos, alpha=0.5)
+    nx.draw_networkx_labels(G, pos, labels=dict_lab, font_size=15, font_weight='bold')
+    nx.draw_networkx_edges(G, pos, alpha=0.1)
     plt.savefig(save_name)
     plt.close()
     #plt.show()
 
 
-# In[85]:
+# In[143]:
 
 
 def compute_modularity(G, partition):
@@ -372,7 +340,7 @@ def compute_modularity(G, partition):
     return modularity
 
 
-# In[86]:
+# In[144]:
 
 
 def filter_communities_with_limit(partition, limit_agg=10):
@@ -387,7 +355,7 @@ def filter_communities_with_limit(partition, limit_agg=10):
     return new_part
 
 
-# In[87]:
+# In[145]:
 
 
 #Two type of clustering format (see above), returns list format from dict format
@@ -402,7 +370,7 @@ def change_format_clustering(partition_dict):
     return part_fin
 
 
-# In[88]:
+# In[146]:
 
 
 def vizualize_from_df(df_nodes, G, savename='test'):
@@ -413,7 +381,7 @@ def vizualize_from_df(df_nodes, G, savename='test'):
     return visualize_clusters(G, partition_list, savename)
 
 
-# In[89]:
+# In[147]:
 
 
 def vizualize_from_df_closeness(df_nodes, G, top=10, savename='test'):
@@ -428,7 +396,7 @@ def vizualize_from_df_closeness(df_nodes, G, top=10, savename='test'):
     return visualize_clusters_labels(G, partition_list, dict_nodes_labeled, savename)
 
 
-# In[90]:
+# In[148]:
 
 
 def vizualize_from_df_pagerank(df_nodes, G, top=10, savename='test'):
@@ -443,7 +411,7 @@ def vizualize_from_df_pagerank(df_nodes, G, top=10, savename='test'):
     return visualize_clusters_labels(G, partition_list, dict_nodes_labeled, savename)
 
 
-# In[91]:
+# In[149]:
 
 
 def vizualize_from_df_betweenness(df_nodes, G, top=10, savename='test'):
@@ -458,25 +426,30 @@ def vizualize_from_df_betweenness(df_nodes, G, top=10, savename='test'):
     return visualize_clusters_labels(G, partition_list, dict_nodes_labeled, savename)
 
 
-# In[111]:
+# In[1]:
 
 
-dates = ['2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31',
-        '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04',
-        '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08',
-         '2020-04-09', '2020-04-10']
-dates= dates[:3]
-top_n =10
+def reassign_top_clusters(df_nodes, top_clusters):
+    s_top_clusters = df_nodes.groupby('cluster_id').cluster_id.count().sort_values(ascending=False)[:top_clusters]
+    l_top_clusters = list(s_top_clusters.index)
+    
+    def reassign_clusters(cluster_id):
+        if cluster_id not in l_top_clusters:
+            return other_cluster_id
+        else:
+            return cluster_id
+    
+    other_cluster_id = random.choice([x for x in range(999) if x not in l_top_clusers])
+    df_nodes.loc[:, 'new_cluster_id'] = df_nodes.cluster_id.apply(reassign_clusters)
+    return df_nodes
 
 
 # ## PIPELINE
 
-# In[118]:
+# In[154]:
 
 
-
-
-# In[119]:
+# In[155]:
 
 
 if __name__=='__main__':
@@ -497,9 +470,15 @@ if __name__=='__main__':
 
         #define df_nodes
         df_nodes = define_df_nodes(df, G)
+        #Reassign top cluster for a better display
+        if filter_by_top_cluster:
+            df_nodes = reassign_top_clusters(df_nodes, top_clusters=top_clusters_display)
+            df_nodes.loc[:, 'cluster_id'] = df_nodes.loc[:, 'new_cluster_id']
+        print(df_nodes.cluster_id.nunique())
+        print(df_nodes.new_cluster_id.nunique())
         savename_nodes  = 'processed_data/nodes/' + str(key).split('_')[-1]+'_nodes.csv'
         df_nodes.to_csv(savename_nodes,  encoding='utf-8')
-
+        
         #define df_edges
         df_edges = define_df_edges(df, G)
         savename_edges  = 'processed_data/edges/' + str(key).split('_')[-1]+'_edges.csv'
@@ -507,13 +486,13 @@ if __name__=='__main__':
 
         #compute and save figures according to clustering and (top) most important nodes
         savename_clusters  = 'visualisation/clusters/' + str(key).split('_')[-1]+'_clusters'
-        vizualize_from_df(df_nodes, G, savename=savename_clusters)
+        vizualize_from_df(df_nodes, G_und, savename=savename_clusters)
         savename_clusters  = 'visualisation/betweenness/' + str(key).split('_')[-1]+'_betweenness'
-        vizualize_from_df_betweenness(df_nodes, G, top=top_n ,savename=savename_clusters)
+        vizualize_from_df_betweenness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
         savename_clusters  = 'visualisation/closeness/' + str(key).split('_')[-1]+'_closeness'
-        vizualize_from_df_closeness(df_nodes, G, top=top_n ,savename=savename_clusters)
+        vizualize_from_df_closeness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
         savename_clusters  = 'visualisation/pagerank/' + str(key).split('_')[-1]+'_pagerank'
-        vizualize_from_df_pagerank(df_nodes, G, top=top_n, savename=savename_clusters)
+        vizualize_from_df_pagerank(df_nodes, G_und, top=top_users_display, savename=savename_clusters)
         
         t2 = time.time()
         delta_t = t2-t1
