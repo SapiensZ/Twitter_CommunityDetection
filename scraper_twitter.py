@@ -148,7 +148,7 @@ def main(dates=dates, n_items=n_items_default):
         t1 = time.time()
         tweet_list = scraping(dates[i], dates[i+1], n_items=n_items_default)
         df = scrap_to_df(tweet_list)
-        csv_name = 'data_'+ str(dates[i]) + '_' + str(dates[i+1]) + '.csv'
+        csv_name = '../data/data_'+ str(dates[i]) + '_' + str(dates[i+1]) + '.csv'
         t2 = time.time()
         delta_t = t2-t1
         print('Time taken (sec):', delta_t)
