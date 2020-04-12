@@ -1,5 +1,0 @@
-,username,count_rt_day,count_t_day,closeness_centrality,degree,in_degree,out_degree,betweenness_centrality,pagerank_value,cluster_id,modularity
-0,davidperrotin,3.0,0.0,1.0,3,3,0,0.0,0.5522395096493726,0,0.0
-1,Maidencloud,0.0,1.0,0.0,1,0,1,0.0,0.14925349678354255,0,0.0
-2,guyzmo,0.0,1.0,0.0,1,0,1,0.0,0.14925349678354255,0,0.0
-3,druide31,0.0,1.0,0.0,1,0,1,0.0,0.14925349678354255,0,0.0
