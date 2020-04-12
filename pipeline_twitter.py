@@ -2,7 +2,8 @@
 # coding: utf-8
 
 # In[1]:
-
+import matplotlib
+matplotlib.use('Agg')
 
 import csv
 import pandas as pd
