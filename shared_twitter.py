@@ -35,7 +35,7 @@ from sklearn.cluster import KMeans
 # In[41]:
 
 
-from functions import *
+from functions_test import *
 
 
 # In[52]:
@@ -47,7 +47,7 @@ dates = ['2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31',
          '2020-04-09', '2020-04-10']
 top_users_display = 10
 filter_by_top_cluster = True
-top_clusters_display=10
+top_clusters_display = 10
 param_subset=False
 param_n_subset=1000
 
@@ -84,15 +84,27 @@ if __name__=='__main__':
         savename_edges  = '../shared_users/processed_data/edges/' + str(key).split('_')[-1]+'_edges.csv'
         df_edges.to_csv(savename_edges,  encoding='utf-8')
 
+        #define clusters
+        partition_dict = dict(zip(df_nodes.username, df_nodes.cluster_id))
+        partition_list = change_format_clustering(partition_dict)
+    
+        #define pos (in order to have same positions of nodes)
+        pos=nx.spring_layout(G)
+    
+        #define colors (in order to have same colors of clusters)
+        colors=[]
+        for i in range(len(partition)):
+            colors.append(cm.Set1(i))
+        
         #compute and save figures according to clustering and (top) most important nodes
         savename_clusters  = '../shared_users/visualisation/clusters/' + str(key).split('_')[-1]+'_clusters'
-        vizualize_from_df(df_nodes, G_und, savename=savename_clusters)
+        vizualize_from_df(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/betweenness/' + str(key).split('_')[-1]+'_betweenness'
-        vizualize_from_df_betweenness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
+        vizualize_from_df_betweenness(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/closeness/' + str(key).split('_')[-1]+'_closeness'
-        vizualize_from_df_closeness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
+        vizualize_from_df_closeness(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/pagerank/' + str(key).split('_')[-1]+'_pagerank'
-        vizualize_from_df_pagerank(df_nodes, G_und, top=top_users_display, savename=savename_clusters)
+        vizualize_from_df_pagerank(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
         
         t2 = time.time()
         delta_t = t2-t1
