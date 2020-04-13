@@ -93,7 +93,7 @@ if __name__=='__main__':
     
         #define colors (in order to have same colors of clusters)
         colors=[]
-        for i in range(len(partition)):
+        for i in range(len(partition_list)):
             colors.append(cm.Set1(i))
         
         #compute and save figures according to clustering and (top) most important nodes
