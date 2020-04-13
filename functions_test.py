@@ -337,7 +337,7 @@ def visualize_clusters_labels(G, partition, dict_lab, pos, colors, save_name):
 
     
     
-def vizualize_from_df((df_nodes, G, clusters, pos, colors, savename='test'):
+def vizualize_from_df(df_nodes, G, clusters, pos, colors, savename='test'):
     return visualize_clusters(G, clusters, pos, colors, savename)
 
 
