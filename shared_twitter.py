@@ -52,37 +52,9 @@ param_subset=False
 param_n_subset=1000
 
 
-# In[53]:
-
-
-#Returns a list of shared users from dictionnary of dataframes
-def get_common_users(df_dict):
-    l_common_users = []
-    set_common_users = set(df_dict[list(df_dict.keys())[0]].user_retweeted)
-    for key in list(df_dict.keys()):
-        set_df_i = set(df_dict[key].user_retweeted)
-        set_common_users = set.intersection(set_common_users, set_df_i)
-    return list(set_common_users)
-
-
-# In[54]:
-
-
-#Returns dictionnary of dataframe where retweeted users are shared to every dataframes
-def filter_dataframe_by_common_users(df_dict, l_common):
-    for key in list(df_dict.keys()):
-        df = df_dict[key]
-        df_filter = df[df.user_retweeted.isin(l_common)]
-        df_dict[key] = df_filter
-    return df_dict
-
-
-# In[56]:
-
-
 if __name__=='__main__':
     df_dict = load_folder_as_dict(dates, prefix='../data/', subset=param_subset, n_subset=param_n_subset)
-    l_common = get_common_users(df_dict)
+    l_common = get_common_users_with_most_connected_component(df_dict)
     df_dict = filter_dataframe_by_common_users(df_dict, l_common)
     graph_dict = define_graphs(df_dict)
     print('Range of dates:', dates)

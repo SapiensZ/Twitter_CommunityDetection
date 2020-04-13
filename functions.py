@@ -425,3 +425,39 @@ def reassign_top_clusters(df_nodes, top_clusters):
     
     df_nodes.loc[:, 'new_cluster_id'] = df_nodes.cluster_id.apply(reassign_clusters)
     return df_nodes
+
+
+#Returns dictionnary of dataframe where retweeted users are shared to every dataframes
+def filter_dataframe_by_common_users(df_dict, l_common):
+    for key in list(df_dict.keys()):
+        df = df_dict[key]
+        df_filter = df[df.user_retweeted.isin(l_common)]
+        df_dict[key] = df_filter
+    return df_dict
+
+
+#Returns a list of shared users from dictionnary of dataframes
+def get_common_users(df_dict):
+    l_common_users = []
+    set_common_users = set(df_dict[list(df_dict.keys())[0]].user_retweeted)
+    for key in list(df_dict.keys()):
+        set_df_i = set(df_dict[key].user_retweeted)
+        set_common_users = set.intersection(set_common_users, set_df_i)
+    return list(set_common_users)
+
+#New function because initially get_common_users didn't take into account that
+#we filtered out only connected component (it took shared users of all components/...)
+def get_common_users_with_most_connected_component(df_dict):
+    l_common_users = []
+    df_init = df_dict[list(df_dict.keys())[0]]
+    G_init = define_graph_from_df(df_init)
+    G_init, df_init = get_df_G_connected_comp(G_init, df_init)
+    set_common_users = set(df_init.user_retweeted)
+    for key in list(df_dict.keys()):
+        df = df_dict[key]
+        G = define_graph_from_df(df)
+        G, df = get_df_G_connected_comp(G, df)
+        set_df_i = set(df.user_retweeted)
+        set_common_users = set.intersection(set_common_users, set_df_i)
+    return list(set_common_users)
+
