@@ -6,7 +6,6 @@ import matplotlib
 matplotlib.use('Agg')
 
 
-
 import csv
 import pandas as pd
 import time
@@ -72,6 +71,7 @@ if __name__=='__main__':
 
         #define df_nodes
         df_nodes = define_df_nodes(df, G)
+        
         #Reassign top cluster for a better display
         if filter_by_top_cluster:
             df_nodes = reassign_top_clusters(df_nodes, top_clusters=top_clusters_display)
@@ -89,7 +89,7 @@ if __name__=='__main__':
         partition_list = change_format_clustering(partition_dict)
     
         #define pos (in order to have same positions of nodes)
-        pos=nx.spring_layout(G)
+        pos=nx.spring_layout(G_und)
     
         #define colors (in order to have same colors of clusters)
         colors=[]

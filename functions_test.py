@@ -319,9 +319,10 @@ def visualize_clusters(G, partition, pos, colors, save_name):
                                node_size=100, alpha=0.4)
     
     nx.draw_networkx_edges(G, pos, alpha=0.1)
+    plt.draw()
     plt.savefig(save_name)
     plt.close()
-    #plt.show()
+    plt.show()
 
 def visualize_clusters_labels(G, partition, dict_lab, pos, colors, save_name):
     
@@ -329,11 +330,12 @@ def visualize_clusters_labels(G, partition, dict_lab, pos, colors, save_name):
         nx.draw_networkx_nodes(G, pos, nodelist=nodeset, node_color=colors[commId],
                                node_size=100, alpha=0.3)
     
-    nx.draw_networkx_labels(G, pos, labels=dict_lab, font_size=15, font_weight='bold')
+    nx.draw_networkx_labels(G, pos, labels=dict_lab, font_size=12, font_weight='bold')
     nx.draw_networkx_edges(G, pos, alpha=0.1)
+    plt.draw()
     plt.savefig(save_name)
     plt.close()
-    #plt.show()
+    plt.show()
 
     
     
