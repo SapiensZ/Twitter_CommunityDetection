@@ -98,13 +98,13 @@ if __name__=='__main__':
         
         #compute and save figures according to clustering and (top) most important nodes
         savename_clusters  = '../shared_users/visualisation/clusters/' + str(key).split('_')[-1]+'_clusters'
-        vizualize_from_df(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, savename=savename_clusters)
+        vizualize_from_df(df_nodes, G_und, clusters=partition_list, pos=pos, colors=colors, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/betweenness/' + str(key).split('_')[-1]+'_betweenness'
-        vizualize_from_df_betweenness(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
+        vizualize_from_df_betweenness(df_nodes, G_und, clusters=partition_list, pos=pos, colors=colors, top=top_users_display, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/closeness/' + str(key).split('_')[-1]+'_closeness'
-        vizualize_from_df_closeness(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
+        vizualize_from_df_closeness(df_nodes, G_und, clusters=partition_list, pos=pos, colors=colors, top=top_users_display, savename=savename_clusters)
         savename_clusters  = '../shared_users/visualisation/pagerank/' + str(key).split('_')[-1]+'_pagerank'
-        vizualize_from_df_pagerank(df_nodes, G_und, clusters=partition_list, pos=partition_list, colors=colors, top=top_users_display, savename=savename_clusters)
+        vizualize_from_df_pagerank(df_nodes, G_und, clusters=partition_list, pos=pos, colors=colors, top=top_users_display, savename=savename_clusters)
         
         t2 = time.time()
         delta_t = t2-t1
