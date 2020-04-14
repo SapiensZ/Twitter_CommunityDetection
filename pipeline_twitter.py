@@ -61,7 +61,7 @@ param_n_subset=1000
 
 
 if __name__=='__main__':
-    df_dict = load_folder_as_dict(dates, prefix='data/', subset=param_subset, n_subset=param_n_subset)
+    df_dict = load_folder_as_dict(dates, prefix='../data/', subset=param_subset, n_subset=param_n_subset)
     graph_dict = define_graphs(df_dict)
     print('Range of dates:', dates)
 
@@ -83,22 +83,22 @@ if __name__=='__main__':
             df_nodes = reassign_top_clusters(df_nodes, top_clusters=top_clusters_display)
             df_nodes.loc[:, 'cluster_id'] = df_nodes.loc[:, 'new_cluster_id']
 
-        savename_nodes  = 'processed_data/nodes/' + str(key).split('_')[-1]+'_nodes.csv'
+        savename_nodes  = '../individual_data/processed_data/nodes/' + str(key).split('_')[-1]+'_nodes.csv'
         df_nodes.to_csv(savename_nodes,  encoding='utf-8')
         
         #define df_edges
         df_edges = define_df_edges(df, G)
-        savename_edges  = 'processed_data/edges/' + str(key).split('_')[-1]+'_edges.csv'
+        savename_edges  = '../individual_data/processed_data/edges/' + str(key).split('_')[-1]+'_edges.csv'
         df_edges.to_csv(savename_edges,  encoding='utf-8')
 
         #compute and save figures according to clustering and (top) most important nodes
-        savename_clusters  = 'visualisation/clusters/' + str(key).split('_')[-1]+'_clusters'
+        savename_clusters  = '../individual_data/visualisation/clusters/' + str(key).split('_')[-1]+'_clusters'
         vizualize_from_df(df_nodes, G_und, savename=savename_clusters)
-        savename_clusters  = 'visualisation/betweenness/' + str(key).split('_')[-1]+'_betweenness'
+        savename_clusters  = '../individual_data/visualisation/betweenness/' + str(key).split('_')[-1]+'_betweenness'
         vizualize_from_df_betweenness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
-        savename_clusters  = 'visualisation/closeness/' + str(key).split('_')[-1]+'_closeness'
+        savename_clusters  = '../individual_data/visualisation/closeness/' + str(key).split('_')[-1]+'_closeness'
         vizualize_from_df_closeness(df_nodes, G_und, top=top_users_display ,savename=savename_clusters)
-        savename_clusters  = 'visualisation/pagerank/' + str(key).split('_')[-1]+'_pagerank'
+        savename_clusters  = '../individual_data/visualisation/pagerank/' + str(key).split('_')[-1]+'_pagerank'
         vizualize_from_df_pagerank(df_nodes, G_und, top=top_users_display, savename=savename_clusters)
         
         t2 = time.time()
