@@ -42,7 +42,7 @@ from sklearn.cluster import KMeans
 #        '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04',
 #        '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08',
 #         '2020-04-09', '2020-04-10']
-dates = ['2020-04-10', '2020-04-11']
+dates = ['2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13']
 #dates=dates[:2]
 top_users_display = 10
 filter_by_top_cluster = True
@@ -82,8 +82,7 @@ if __name__=='__main__':
         if filter_by_top_cluster:
             df_nodes = reassign_top_clusters(df_nodes, top_clusters=top_clusters_display)
             df_nodes.loc[:, 'cluster_id'] = df_nodes.loc[:, 'new_cluster_id']
-        print(df_nodes.cluster_id.nunique())
-        print(df_nodes.new_cluster_id.nunique())
+
         savename_nodes  = 'processed_data/nodes/' + str(key).split('_')[-1]+'_nodes.csv'
         df_nodes.to_csv(savename_nodes,  encoding='utf-8')
         
